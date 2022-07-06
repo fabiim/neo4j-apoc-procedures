@@ -11,6 +11,8 @@ import java.util.function.Function;
 import org.neo4j.common.DependencyResolver;
 import org.neo4j.dbms.api.DatabaseManagementService;
 import org.neo4j.dbms.api.Neo4jDatabaseManagementServiceBuilder;
+import org.neo4j.dbms.database.TopologyGraphDbmsModel;
+import org.neo4j.dbms.database.TopologyGraphDbmsModel.HostedOnMode;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.QueryExecutionException;
 import org.neo4j.graphdb.ResultTransformer;
@@ -23,6 +25,7 @@ import org.neo4j.kernel.api.KernelTransaction;
 import org.neo4j.kernel.database.NamedDatabaseId;
 import org.neo4j.kernel.impl.coreapi.InternalTransaction;
 import org.neo4j.kernel.impl.factory.DbmsInfo;
+import org.neo4j.kernel.impl.factory.OperationalMode;
 import org.neo4j.kernel.internal.GraphDatabaseAPI;
 
 import static org.neo4j.configuration.GraphDatabaseSettings.DEFAULT_DATABASE_NAME;
@@ -352,6 +355,12 @@ public abstract class DbmsRule extends ExternalResource implements GraphDatabase
     public DbmsInfo dbmsInfo()
     {
         return database.dbmsInfo();
+    }
+
+    @Override
+    public HostedOnMode mode()
+    {
+        return database.mode();
     }
 
     @Override
